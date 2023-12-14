@@ -1,0 +1,35 @@
+<% @post.tags.build %>
+<%= form_with(model: post) do |post_form| %>
+  <% if post.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+        <% post.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= post_form.label :name, style: "display: block" %>
+    <%= post_form.text_field :name %>
+  </div>
+
+  <div>
+    <%= post_form.label :title, style: "display: block" %>
+    <%= post_form.text_field :title %>
+  </div>
+
+  <div>
+    <%= post_form.label :content, style: "display: block" %>
+    <%= post_form.text_area :content %>
+  </div>
+  <h2>Tags</h2>
+  <%= render :partial => 'tags/form',
+             :locals => {:form => post_form} %>
+  <div>
+    <%= post_form.submit %>
+  </div>
+<% end %>
